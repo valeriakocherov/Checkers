@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.*;
 
 public class Checkers extends AppCompatActivity implements View.OnClickListener  {
-
+//first try to commit
     private ImageButton[][] ckeckersBoard;
     private TableRow[] ckRowBoard;
     private ManagerCheckers checkersM;// the conection to the manager checkers java class
