@@ -24,6 +24,11 @@ public class MainMenu extends AppCompatActivity  implements View.OnClickListener
     private Button btnPlay;
     private Button btnMusic;
 
+    //prefernce finals
+    public static final String COUNT = "COUNT";
+    public static final String NAME = "NAME";
+    public static final String SCORE = "SCORE";
+
     //    private static String gameName;
     //    public static final int SECOND_ACTIVITY = 10;
     @Override

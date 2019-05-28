@@ -18,6 +18,7 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
     private ManagerCheckers checkersM;// the conection to the manager checkers java class
     private ImageButton buttonB;
     private int firsti, firstj;//keep the first place piece cheaker
+    private boolean turn = false;
 
     //show the options movement to the black piece
     public void optionMovementBlackPiece(ImageButton[][] ckeckersBoard, ImageButton button, int column, int row) {
@@ -452,25 +453,25 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
         int column = id % 10; //id column- the button that clicked
         ImageButton button = (ImageButton) v;// the id Imagebutton that clicked
 
-        if (v.getTag() == "blackPiece") {
+        if (v.getTag() == "blackPiece" && turn) {
             clearButton();
             optionMovementBlackPiece(ckeckersBoard, button, column, row);
             eatingWhitePiece(ckeckersBoard, button, column, row);
         }
 
-        if (v.getTag() == "whitePiece") {
+        if (v.getTag() == "whitePiece" && !turn) {
             clearButton();
             optionMovementWhitePiece(ckeckersBoard, button, column, row);
             eatingBlackPiece(ckeckersBoard, button, column, row);
             Toast.makeText(getApplicationContext(), row + " ", Toast.LENGTH_LONG).show();
         }
 
-        if (v.getTag() == "whiteKingPiece") {
+        if (v.getTag() == "whiteKingPiece" && !turn) {
             clearButton();
             whiteKingOptionMovement(ckeckersBoard, button, column, row);
         }
 
-        if (v.getTag() == "blackKingPiece") {
+        if (v.getTag() == "blackKingPiece" && turn) {
             clearButton();
             blackKingOptionMovement(ckeckersBoard, button, column, row);
         }
@@ -491,6 +492,8 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
                 else
                     yellowBecameBlack(ckeckersBoard, button, column, row);
 
+                turn = !turn;
+
         }
 
         if (((ImageButton) v).getBackground().getConstantState().equals(getResources()
@@ -500,6 +503,8 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
                 redBecameWhite(ckeckersBoard, button, column, row);
             if (ckeckersBoard[firsti][firstj].getTag() == "blackPiece" || ckeckersBoard[firsti][firstj].getTag() == "blackKingPiece")
                 redBecameBlack(ckeckersBoard, button, column, row);
+
+            turn = !turn;
         }
 
         ///here problem (is there still a problem??)
@@ -513,10 +518,12 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
             if (ckeckersBoard[firsti][firstj].getTag() == "blackKingPiece") {
                 blueBecameKingBlack(ckeckersBoard, button, column, row);
             }
+
+            turn = !turn;
         }
 
         if(blackWin()){
-
+// alert
         }
         else if(whiteWin()){
 
