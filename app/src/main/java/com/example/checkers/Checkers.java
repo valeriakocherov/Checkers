@@ -515,6 +515,13 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
             }
         }
 
+        if(blackWin()){
+
+        }
+        else if(whiteWin()){
+
+        }
+
     }
 
 
@@ -597,4 +604,25 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
         return true;
     }
 
+    public boolean whiteWin (){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if(ckeckersBoard[i][j].getTag() == "blackPiece" || ckeckersBoard[i][j].getTag() == "blackKingPiece"){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean blackWin() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if(ckeckersBoard[i][j].getTag() == "whitePiece" || ckeckersBoard[i][j].getTag() == "whiteKingPiece"){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
