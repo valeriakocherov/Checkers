@@ -1,7 +1,9 @@
 package com.example.checkers;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -19,6 +21,10 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
     private ImageButton buttonB;
     private int firsti, firstj;//keep the first place piece cheaker
     private boolean turn = false;
+    private String blackPlayer;
+    private String whitePlayer;
+    private AppPreference preference; // game preferce to update
+
 
     //show the options movement to the black piece
     public void optionMovementBlackPiece(ImageButton[][] ckeckersBoard, ImageButton button, int column, int row) {
@@ -418,8 +424,8 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
         createBoard();
         checkersM.setStartedBoard(); // placing the figures in the right place for the beginning of the game
 
-        String blackPlayer = getIntent().getStringExtra("blackPlayer");
-        String whitePlayer = getIntent().getStringExtra("whitePlayer");
+         blackPlayer = getIntent().getStringExtra("blackPlayer");
+         whitePlayer = getIntent().getStringExtra("whitePlayer");
 
         TextView text = findViewById(R.id.players);
         text.setText(blackPlayer + " " + whitePlayer);
@@ -523,6 +529,22 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
         }
 
         if(blackWin()){
+
+            new AlertDialog.Builder(this)
+                    .setTitle("winner!")
+                    .setMessage("congratulation " +  blackPlayer +" you won the game \n press ok to continue to ListBoard")
+                    .setNeutralButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // save all the data
+                            preference.update(blackPlayer,0);
+
+
+                            // go to statistic
+                            Intent intent=new Intent(Checkers.this,Score.class);
+                            startActivity(intent);
+                        }
+                    }).show();
 // alert
         }
         else if(whiteWin()){

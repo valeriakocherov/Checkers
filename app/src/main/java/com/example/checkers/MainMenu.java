@@ -23,6 +23,7 @@ public class MainMenu extends AppCompatActivity  implements View.OnClickListener
 
     private Button btnPlay;
     private Button btnMusic;
+    private Button btnScores;
 
     //prefernce finals
     public static final String COUNT = "COUNT";
@@ -39,6 +40,9 @@ public class MainMenu extends AppCompatActivity  implements View.OnClickListener
 
         btnPlay = (Button) findViewById(R.id.btnplay);
         btnPlay.setOnClickListener(this);
+
+        btnScores = (Button) findViewById(R.id.btnscores);
+        btnScores.setOnClickListener(this);
 
         this.btnMusic = (Button) findViewById(R.id.btnMusic);
         this.btnMusic.setOnClickListener(this);
@@ -113,6 +117,11 @@ public class MainMenu extends AppCompatActivity  implements View.OnClickListener
 
             case R.id.btnMusic:
                 intent = new Intent(this, MusicList.class);
+                startActivity(intent);
+                break;
+
+            case R.id.btnscores:
+                intent = new Intent(this, Score.class);
                 startActivity(intent);
                 break;
 

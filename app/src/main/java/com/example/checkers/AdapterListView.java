@@ -59,7 +59,7 @@ public class AdapterListView extends BaseAdapter {
         HashMap<String, String> map = list.get(i);
 
         //Design the score list
-        viewHolder.col1.setText(map.get(ListScores.FIRST_COLUMN));
+        viewHolder.col1.setText(map.get(Score.FIRST_COLUMN));
 
         viewHolder.col1.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
@@ -77,7 +77,7 @@ public class AdapterListView extends BaseAdapter {
         }
 
         //Design the score list
-        viewHolder.col2.setText(map.get(ListScores.SECOND_COLUMN));
+        viewHolder.col2.setText(map.get(Score.SECOND_COLUMN));
 
         viewHolder.col2.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 

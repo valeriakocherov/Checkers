@@ -29,14 +29,14 @@
                 android:layout_height="match_parent">
 
             <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="332dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.00"
                     android:fontFamily="casual"
                     android:gravity="center_horizontal"
-                    android:text=" Names or Music"
+                    android:text="Music"
                     android:textSize="40sp"
-                    android:textStyle="normal|bold" />
+                    android:textStyle="normal|bold"/>
         </TableRow>
 
         <TableRow
