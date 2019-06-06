@@ -8,14 +8,23 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textStyle="bold"
-            android:fontFamily="casual" tools:ignore="MissingConstraints"
-            app:layout_constraintEnd_toEndOf="parent" android:textColor="#E91E63" android:textColorLink="#E91E63"/>
+            android:fontFamily="casual"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="#E91E63"
+            android:textColorLink="#E91E63"
+            app:fontFamily="cursive"
+            android:includeFontPadding="true" android:textColorHint="#E91E63"/>
     <TextView
             android:id="@+id/score"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textStyle="bold"
-            android:fontFamily="casual" tools:ignore="MissingConstraints" android:textColor="#E91E63"
-            android:textColorLink="#E91E63"/>
+            android:fontFamily="casual"
+            tools:ignore="MissingConstraints"
+            android:textColor="#E91E63"
+            android:textColorLink="#E91E63"
+            app:fontFamily="cursive"
+            android:shadowColor="#DD8282"/>
 </android.support.constraint.ConstraintLayout>

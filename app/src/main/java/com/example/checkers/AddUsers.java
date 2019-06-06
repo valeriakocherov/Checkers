@@ -8,13 +8,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.*;
 
-public class AddUsers extends AppCompatActivity {
+public class AddUsers extends AppCompatActivity implements View.OnClickListener {
     private EditText white, black;
     private Button play;
     private String whitestr, blackstr;
+    private ArrayAdapter<CharSequence> adapter;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class AddUsers extends AppCompatActivity {
             }
         });
 
+        //intent = new Intent(AddUsers.this, Checkers.class);
     }
 
     public void openCheckers(){
@@ -70,17 +72,17 @@ public class AddUsers extends AppCompatActivity {
 
         switch (id) {
             case R.id.music:
-                if (MainMenu.isPlaying)
+                if(MainMenu.isPlaying) {
                     MainMenu.musicService.pause();
-                else
+                    item.setTitle("Unmute");
+                }
+                else {
                     MainMenu.musicService.resume();
-                MainMenu.isPlaying = !MainMenu.isPlaying;
+                    item.setTitle("Mute");
+                }
+                MainMenu.isPlaying=!MainMenu.isPlaying;
                 break;
-            case R.id.manu_main:
-                intent = new Intent(this, MainMenu.class);
-                startActivity(intent);
-                finish();
-                break;
+
 
             case R.id.call:
                 intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + ""));
@@ -92,6 +94,11 @@ public class AddUsers extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }
 

@@ -31,7 +31,7 @@
             android:orderInCategory="100"
             android:id="@+id/music"
 
-            android:title="music"
+            android:title="mute"
             android:icon="@android:drawable/ic_lock_silent_mode_off">
     </item>
     <item

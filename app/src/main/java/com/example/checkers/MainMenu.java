@@ -80,11 +80,15 @@ public class MainMenu extends AppCompatActivity  implements View.OnClickListener
 
         switch (id) {
             case R.id.music:
-                if (MainMenu.isPlaying)
+                if(MainMenu.isPlaying) {
                     MainMenu.musicService.pause();
-                else
+                    item.setTitle("Unmute");
+                }
+                else {
                     MainMenu.musicService.resume();
-                MainMenu.isPlaying = !MainMenu.isPlaying;
+                    item.setTitle("Mute");
+                }
+                MainMenu.isPlaying=!MainMenu.isPlaying;
                 break;
             case R.id.manu_main:
                 intent = new Intent(this, MainMenu.class);
@@ -97,8 +101,10 @@ public class MainMenu extends AppCompatActivity  implements View.OnClickListener
                 startActivity(intent);
                 break;
             case R.id.exit:
+                stopService(playIntent);
+                musicService = null;
+                finishActivity(1);
                 finish();
-                //System.exit(0);
                 break;
         }
         return true;
@@ -125,12 +131,12 @@ public class MainMenu extends AppCompatActivity  implements View.OnClickListener
                 startActivity(intent);
                 break;
 
-            default:
+            case R.id.btnexit:
                 stopService(playIntent);
-                musicService = null;
-                finishActivity(1);
-                finish();
-                break;
+            musicService = null;
+            finishActivity(1);
+            finish();
+            break;
         }
 
     }

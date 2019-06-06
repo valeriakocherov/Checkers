@@ -15,14 +15,14 @@ import android.widget.*;
 
 public class Checkers extends AppCompatActivity implements View.OnClickListener  {
 //first try to commit
-    private ImageButton[][] ckeckersBoard;
-    private TableRow[] ckRowBoard;
+    private ImageButton[][] ckeckersBoard;// all the buttons on the checker board
+    private TableRow[] ckRowBoard; // help to create the form of the board
     private ManagerCheckers checkersM;// the conection to the manager checkers java class
-    private ImageButton buttonB;
-    private int firsti, firstj;//keep the first place piece cheaker
-    private boolean turn = false;
-    private String blackPlayer;
-    private String whitePlayer;
+    private ImageButton buttonB;//help button
+    private int firsti, firstj;//keep the first place piece of the cheaker
+    private boolean turn = false;//keep the turn of every player
+    private String blackPlayer; //name of the black checker player
+    private String whitePlayer;//name of the white checker player
     private AppPreference preference; // game preferce to update
 
 
@@ -68,7 +68,7 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
         this.firstj = column;
     }
 
-    //
+    // all options movments of the white king checker
     public void whiteKingOptionMovement(ImageButton[][] ckeckersBoard, ImageButton button, int column, int row) {
 
         int x = row;
@@ -138,6 +138,7 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
         this.firstj = column;
     }
 
+    // all options movments of the black king checker
     public void blackKingOptionMovement(ImageButton[][] ckeckersBoard, ImageButton button, int column, int row) {
 
         int x = row;
@@ -206,7 +207,7 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
         this.firstj = column;
     }
 
-    //
+    //when the white king moves - change the place of the white king
     public void blueBecameKingWhite(ImageButton[][] ckeckersBoard, ImageButton button, int column, int row) {
         ckeckersBoard[row][column].setImageResource(R.mipmap.kingwhitepiece);
         ckeckersBoard[row][column].setTag("whiteKingPiece");
@@ -218,7 +219,7 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
 
     }
 
-    //
+    //when the black king moves - change the black of the white king
     public void blueBecameKingBlack(ImageButton[][] ckeckersBoard, ImageButton button, int column, int row) {
         ckeckersBoard[row][column].setImageResource(R.mipmap.kingblackpiece);
         ckeckersBoard[row][column].setTag("blackKingPiece");
@@ -255,7 +256,7 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
     }
 
     //doing the action of the white movement
-    public void yellowBecameWhite(ImageButton[][] ckeckersBoard, ImageButton button, int column, int row) {
+    public void yellowBecameWhite(ImageButton[][] ckeckersBoard, int column, int row) {
 
         ckeckersBoard[row][column].setImageResource(R.mipmap.whitepiece);
         ckeckersBoard[row][column].setTag("whitePiece");
@@ -411,12 +412,96 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
 
     }
 
+    //change to white king when the white eating the last black
+    public void redBecameWhiteKing(ImageButton[][] ckeckersBoard, ImageButton button, int column, int row) {
+
+        if (ckeckersBoard[firsti][firstj].getTag().equals("whitePiece")) {
+            ckeckersBoard[row][column].setImageResource(R.mipmap.kingwhitepiece);
+            ckeckersBoard[row][column].setTag("whiteKingPiece");
+            ckeckersBoard[firsti][firstj].setImageResource(R.mipmap.invisible);
+            ckeckersBoard[firsti][firstj].setTag("");
+
+            //deleting the eaten piece from the board
+            if (ckeckersBoard[firsti - 1][firstj - 1].getTag() == "blackPiece"
+                    || ckeckersBoard[firsti - 1][firstj + 1].getTag() == "blackPiece"
+                    || ckeckersBoard[firsti - 1][firstj - 1].getTag() == "blackKingPiece"
+                    || ckeckersBoard[firsti - 1][firstj + 1].getTag() == "blackKingPiece") {
+                if (column < firstj) {
+                    ckeckersBoard[firsti - 1][firstj - 1].setImageResource(R.mipmap.invisible);
+                    ckeckersBoard[firsti - 1][firstj - 1].setTag("");
+                }
+                if (column > firstj) {
+                    ckeckersBoard[firsti - 1][firstj + 1].setImageResource(R.mipmap.invisible);
+                    ckeckersBoard[firsti - 1][firstj + 1].setTag("");
+                }
+            }
+        }
+    }
+
+    //change to  black king when the white eating the last white
+    public void redBecameBlackKing(ImageButton[][] ckeckersBoard, ImageButton button, int column, int row) {
+
+        if (ckeckersBoard[firsti][firstj].getTag().equals("blackPiece")) {
+            ckeckersBoard[row][column].setImageResource(R.mipmap.kingblackpiece);
+            ckeckersBoard[row][column].setTag("blackKingPiece");
+            ckeckersBoard[firsti][firstj].setImageResource(R.mipmap.invisible);
+            ckeckersBoard[firsti][firstj].setTag("");
+
+            //deleting the eaten piece from the board
+            if(firstj < column && firsti < row){
+                ckeckersBoard[row - 1][column - 1].setImageResource(R.mipmap.invisible);
+                ckeckersBoard[row - 1][column - 1].setTag("");
+            }
+            if(firstj<column && firsti>row){
+                ckeckersBoard[row + 1][column - 1].setImageResource(R.mipmap.invisible);
+                ckeckersBoard[row + 1][column - 1].setTag("");
+            }
+            if(firstj>column && firsti>row){
+                ckeckersBoard[row + 1][column + 1].setImageResource(R.mipmap.invisible);
+                ckeckersBoard[row + 1][column + 1].setTag("");
+            }
+            if(firstj>column && firsti<row){
+                ckeckersBoard[row - 1][column + 1].setImageResource(R.mipmap.invisible);
+                ckeckersBoard[row - 1][column + 1].setTag("");
+            }
+
+            ckeckersBoard[firsti][firstj].setImageResource(R.mipmap.invisible);
+            ckeckersBoard[firsti][firstj].setTag("");
+        }
+    }
+
+    //checking if there a red button on the board
+    public boolean ifRed() {
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if ((ckeckersBoard[i][j]).getBackground().getConstantState().equals(getResources()
+                        .getDrawable(R.color.cocoabrown).getConstantState())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 
+    public void ifYellow() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if ((ckeckersBoard[i][j]).getBackground().getConstantState().equals(getResources()
+                        .getDrawable(R.color.mindaro).getConstantState())) {
+                    ckeckersBoard[i][j].setBackgroundResource(R.color.lilacluster);
+                }
+            }
+
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkers);
+
+        preference = new AppPreference(getApplicationContext());
 
         this.ckeckersBoard = new ImageButton[8][8];// the checkers board
         ckRowBoard = new TableRow[8]; // the numbers rows in the board checker's
@@ -429,6 +514,8 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
 
         TextView text = findViewById(R.id.players);
         text.setText(blackPlayer + " " + whitePlayer);
+
+        ckeckersBoard[5][0].performClick();
     }
 
 
@@ -469,7 +556,7 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
             clearButton();
             optionMovementWhitePiece(ckeckersBoard, button, column, row);
             eatingBlackPiece(ckeckersBoard, button, column, row);
-            Toast.makeText(getApplicationContext(), row + " ", Toast.LENGTH_LONG).show();
+           // Toast.makeText(getApplicationContext(), row + " ", Toast.LENGTH_LONG).show();
         }
 
         if (v.getTag() == "whiteKingPiece" && !turn) {
@@ -491,7 +578,7 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
                 if (row == 0)
                     whiteBecameKing(ckeckersBoard, button, column, row);
                 else
-                    yellowBecameWhite(ckeckersBoard, button, column, row);
+                    yellowBecameWhite(ckeckersBoard, column, row);
             if (ckeckersBoard[firsti][firstj].getTag() == "blackPiece")
                 if (row == 7)
                     blackBecameKing(ckeckersBoard, button, column, row);
@@ -505,12 +592,33 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
         if (((ImageButton) v).getBackground().getConstantState().equals(getResources()
                 .getDrawable(R.color.cocoabrown).getConstantState())) {
             clearButton();
-            if (ckeckersBoard[firsti][firstj].getTag() == "whitePiece" || ckeckersBoard[firsti][firstj].getTag() == "whiteKingPiece")
-                redBecameWhite(ckeckersBoard, button, column, row);
-            if (ckeckersBoard[firsti][firstj].getTag() == "blackPiece" || ckeckersBoard[firsti][firstj].getTag() == "blackKingPiece")
-                redBecameBlack(ckeckersBoard, button, column, row);
 
+
+            if (ckeckersBoard[2][firstj].getTag() == "whitePiece")
+                redBecameWhiteKing(ckeckersBoard, button, column, row);
+            if (ckeckersBoard[firsti][firstj].getTag() == "whitePiece" || ckeckersBoard[firsti][firstj].getTag() == "whiteKingPiece") {
+                redBecameWhite(ckeckersBoard, button, column, row);
+                v.performClick();
+                if(ifRed()){
+                    //turn = !turn;
+                    ifYellow();
+                }
+                else clearButton();
+            }
+
+            if (ckeckersBoard[5][firstj].getTag() == "blackPiece")
+                redBecameBlackKing(ckeckersBoard, button, column, row);
+            if (ckeckersBoard[firsti][firstj].getTag() == "blackPiece" || ckeckersBoard[firsti][firstj].getTag() == "blackKingPiece") {
+                redBecameBlack(ckeckersBoard, button, column, row);
+                v.performClick();
+                if(ifRed()){
+                    //turn = !turn;
+                    ifYellow();
+                }
+                else clearButton();
+            }
             turn = !turn;
+
         }
 
         ///here problem (is there still a problem??)
@@ -537,8 +645,7 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // save all the data
-                            preference.update(blackPlayer,0);
-
+                            preference.update(blackPlayer, 1);
 
                             // go to statistic
                             Intent intent=new Intent(Checkers.this,Score.class);
@@ -548,6 +655,21 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
 // alert
         }
         else if(whiteWin()){
+            new AlertDialog.Builder(this)
+                    .setTitle("winner!")
+                    .setMessage("congratulation " +  whitePlayer +" you won the game \n press ok to continue to ListBoard")
+                    .setNeutralButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // save all the data
+                            preference.update(whitePlayer, 1);
+
+                            // go to statistic
+                            Intent intent=new Intent(Checkers.this,Score.class);
+                            startActivity(intent);
+                        }
+                    }).show();
+// alert
 
         }
 
@@ -609,11 +731,15 @@ public class Checkers extends AppCompatActivity implements View.OnClickListener 
 
         switch (id) {
             case R.id.music:
-                if (MainMenu.isPlaying)
+                if(MainMenu.isPlaying) {
                     MainMenu.musicService.pause();
-                else
+                    item.setTitle("Unmute");
+                }
+                else {
                     MainMenu.musicService.resume();
-                MainMenu.isPlaying = !MainMenu.isPlaying;
+                    item.setTitle("Mute");
+                }
+                MainMenu.isPlaying=!MainMenu.isPlaying;
                 break;
             case R.id.manu_main:
                 intent = new Intent(this, MainMenu.class);
